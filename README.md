@@ -18,6 +18,7 @@
     * training --> Script configuration file
     * training_script --> Script to launch a training session
     * validation_script --> Script to launch a validation session
+    * Model Folder --> Trained model files (final version)
 
 ## Main sources / Reading materials
 
