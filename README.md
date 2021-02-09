@@ -19,6 +19,8 @@
     * training_script --> Script to launch a training session
     * validation_script --> Script to launch a validation session
     * Model Folder --> Trained model files (final version)
+    * BPM_estimation_on_real_video --> Script to test on real data
+    * testOnRealVideo --> Script configuration file
 
 ## Main sources / Reading materials
 

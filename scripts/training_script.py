@@ -10,7 +10,7 @@ from tensorflow.python.keras.layers import ZeroPadding3D, Dense, Activation,Conv
 from tensorflow.python.keras.utils import np_utils
 from tensorflow.python.keras.models import load_model
 
-# Numpy / Matplotlib / OpenCV / Scipy
+# Numpy / Matplotlib / OpenCV / Scipy / ConfigParser
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -190,7 +190,7 @@ def generate_trend(length, order, min, max, offset):
 Train Data generation
 """
 
-def dataGeneration(xtrain, ytrain):
+def data_generation(xtrain, ytrain):
     print("start : Train Data generation ...")
 
     c = 0
@@ -258,7 +258,7 @@ if (CONTINUE_TRAINING == True):
 for serie in range(NB_SESSION):
 
     print("Session " + str(serie))
-    xtrain, ytrain = dataGeneration(xtrain, ytrain)
+    xtrain, ytrain = data_generation(xtrain, ytrain)
 
     if(MIXED_DATA == True):
         data = np.load(REAL_VIDEO_DATASET)
