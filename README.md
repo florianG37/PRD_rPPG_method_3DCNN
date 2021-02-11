@@ -15,12 +15,14 @@
 
     * Installing_dependencies --> Install libraries for scripts (Windows File)
     * requirements --> List of used libraries + versions
-    * training --> Script configuration file
+    * training --> Script configuration file - training_script
     * training_script --> Script to launch a training session
     * validation_script --> Script to launch a validation session
     * Model Folder --> Trained model files (final version)
     * BPM_estimation_on_real_video --> Script to test on real data
-    * testOnRealVideo --> Script configuration file
+    * testOnRealVideo --> Script configuration file - BPM_estimation_on_real_video
+    * generating_training_data_with_GT_script --> Script to create a training dataset from traditional rPPG datasets (with preprocessing).
+    * generatingTrainingDatasetWithGT --> Script configuration file - generating_training_data_with_GT_script
 
 ## Main sources / Reading materials
 
