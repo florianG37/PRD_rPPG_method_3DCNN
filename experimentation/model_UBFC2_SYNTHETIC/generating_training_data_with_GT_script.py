@@ -3,12 +3,15 @@
 ## 
 
 #PyVHR Framework
-from pyVHR.datasets.ubfc2 import UBFC2
 from pyVHR.datasets.dataset import Dataset
 from pyVHR.datasets.dataset import datasetFactory
 from pyVHR.methods.base import methodFactory
 from pyVHR.signals.video import Video
-
+from pyVHR.datasets.ubfc2 import UBFC2
+from pyVHR.datasets.ubfc1 import UBFC1
+from pyVHR.datasets.pure import PURE
+from pyVHR.datasets.lgi_ppgi import LGI_PPGI
+from pyVHR.datasets.cohface import COHFACE
 
 #Tensorflow/KERAS
 import tensorflow as tf
@@ -122,13 +125,25 @@ def formating_data_test(video, imgs, start, end, step_x, step_y):
         iteration_x = iteration_x + 1
         
     return xtemp
+##
+## Management of frame rate differences by interpolation
+## 
+def interpolation(imgs, video):
+    # find the number of missing images
+    nb_seconds = int(video.numFrames / video.frameRate)
+    diff_frames = nb_seconds * (RATE - video.frameRate)
+
+    # adding images to a random place
+    place_interpolation = np.random.randint(1, LENGTH_VIDEO, size=(diff_frames))
+    for p in place_interpolation:
+        imgs = np.insert(imgs, p, imgs[p], axis=0) 
 
 ##
 ## Protocol for transforming a video into a machine learning dataset
 ## Generate xtest & ytest from one video
 ##
 
-def extract_data_from_video(video_filename, gt_filename):
+def extract_data_from_video(video_filename, gt_filename, dataset):
     
     sig_gt = dataset.readSigfile(gt_filename)
     win_size_gt = WIN_SIZE
@@ -173,7 +188,10 @@ def extract_data_from_video(video_filename, gt_filename):
             temp = video.faces[j] / 255
 
         imgs[j] = np.expand_dims(temp, 2)
-    
+
+    # frameRate different from the model
+    if (RATE > video.frameRate):
+        interpolation(imgs, video)
 
     # Construction of sequences for each time interval
     for lapse in range(0,NB_LAPSE):  
@@ -195,6 +213,7 @@ def extract_data_from_video(video_filename, gt_filename):
         
     return xtest, ytest
 
+
 ##
 ## Applying the transformation on dataset
 ## 
@@ -208,7 +227,7 @@ def apply_transformation():
     # For each video in the dataset
     for i in range (FIRST_IDX, LAST_IDX):
         print ("video : " + str(i))
-        xtest, ytest = extract_data_from_video(dataset.video_filenames[i], dataset.sigFilenames[i])
+        xtest, ytest = extract_data_from_video(dataset.videoFilenames[i], dataset.sigFilenames[i], dataset)
         print(np.shape(xtest))
         xtrain = np.concatenate((xtrain, xtest), axis=0)
         ytrain = np.concatenate((ytrain, ytest), axis=0)
