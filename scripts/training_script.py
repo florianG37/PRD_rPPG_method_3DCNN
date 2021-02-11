@@ -147,9 +147,6 @@ a2 = -0.050159136439220
 b2 = 0.099347477830878
 w = 2 * np.pi
 
-xtrain = np.zeros(shape=((NB_CLASSES + 1) * NB_VIDEOS_BY_CLASS_TRAIN, LENGTH_VIDEO, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS))
-ytrain = np.zeros(shape=((NB_CLASSES + 1) * NB_VIDEOS_BY_CLASS_TRAIN, NB_CLASSES + 1))
-
 
 """
 Trend generation function for artificial data creation
@@ -257,6 +254,14 @@ if (CONTINUE_TRAINING == True):
 
 for serie in range(NB_SESSION):
 
+    # memory management
+    if(serie != 0):
+        del xtrain
+        del ytrain 
+
+    xtrain = np.zeros(shape=((NB_CLASSES + 1) * NB_VIDEOS_BY_CLASS_TRAIN, LENGTH_VIDEO, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNELS))
+    ytrain = np.zeros(shape=((NB_CLASSES + 1) * NB_VIDEOS_BY_CLASS_TRAIN, NB_CLASSES + 1))
+
     print("Session " + str(serie))
     xtrain, ytrain = data_generation(xtrain, ytrain)
 
@@ -269,7 +274,8 @@ for serie in range(NB_SESSION):
         np.random.shuffle(indices)
         xtrain = xtrain[indices]
         ytrain = ytrain[indices]
-    
+
+
     #start training
     model.fit(xtrain, ytrain, epochs = EPOCHS, batch_size=BATCH_SIZE, verbose=VERBOSE)
 
