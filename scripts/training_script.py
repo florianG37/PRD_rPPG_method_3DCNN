@@ -87,7 +87,7 @@ if (int(config['modelConfig']['mixedData']) == 1):
 
 RESULTS_PATH = str(config['modelConfig']['modelPath'])
 
-REAL_VIDEO_DATASET = str(config['dataConfig']['realVideoDataset'])
+REAL_VIDEO_DATASET = config.get('dataConfig', 'realVideoDataset').split(',')
 
 useCPU  = int(config['modelConfig']['useCPU'])
 if(useCPU == 1):
@@ -266,9 +266,11 @@ for serie in range(NB_SESSION):
     xtrain, ytrain = data_generation(xtrain, ytrain)
 
     if(MIXED_DATA == True):
-        data = np.load(REAL_VIDEO_DATASET)
-        xtrain = np.concatenate((xtrain, data['a']), axis=0)
-        ytrain =  np.concatenate((ytrain, data['b']), axis=0)
+        # manage several data files
+        for i in range(len(REAL_VIDEO_DATASET)):
+            data = np.load(str(REAL_VIDEO_DATASET[i]))
+            xtrain = np.concatenate((xtrain, data['a']), axis=0)
+            ytrain =  np.concatenate((ytrain, data['b']), axis=0)
 
         indices = np.arange(xtrain.shape[0])
         np.random.shuffle(indices)
