@@ -6,7 +6,7 @@
 
 * notebooks --> Research, explanations, tests
 
-    * experimentation --> Different approaches to model training
+    
     * Train_3DCNN_model_BPM --> Jupyter notebook of the new method (3DCNN) implementation (with explanations)
     * Predict_3DCNN_model_BPM --> Jupyter notebook to make predictions with the model with [pyVHR framework](https://github.com/phuselab/pyVHR) constraints (with explanations).
     * Generating_training_data_with_GT --> Jupyter Notebook to create a training dataset from traditional rPPG datasets (Pre-Processing = reshape). Judge its relevance to improve the training of our model
@@ -14,16 +14,25 @@
 
 * scripts --> final code
 
-    * Installing_dependencies --> Install libraries for scripts (Windows File)
-    * requirements --> List of used libraries + versions
-    * training --> Script configuration file - training_script
-    * training_script --> Script to launch a training session
-    * validation_script --> Script to launch a validation session
-    * Model Folder --> Trained model files (final version)
-    * BPM_estimation_on_real_video --> Script to test on real data
-    * testOnRealVideo --> Script configuration file - BPM_estimation_on_real_video
-    * generating_training_data_with_GT_script --> Script to create a training dataset from traditional rPPG datasets (with preprocessing).
-    * generatingTrainingDatasetWithGT --> Script configuration file - generating_training_data_with_GT_script
+    * "model" Folder --> Trained model files (final version)
+
+    * "setup" Folder --> Installation tools
+        * Installing_dependencies --> Install libraries for scripts (Windows File)
+        * requirements --> List of used libraries + versions
+
+    * "tests_model" Folder --> Testing tools
+        * validation_script --> Script to launch a validation session
+        * validation -->Script configuration file - validation_script
+        * BPM_estimation_on_real_video --> Script to test on real data
+        * BPMEstimationOnRealVideo --> Script configuration file - BPM_estimation_on_real_video
+
+    * "training_model" Folder --> Training tools
+        * training --> Script configuration file - training_script
+        * training_script --> Script to launch a training session
+        * generating_training_data_with_GT_script --> Script to create a training dataset from traditional rPPG datasets (with preprocessing).
+        * generatingTrainingDatasetWithGT --> Script configuration file - generating_training_data_with_GT_script
+
+* experimentation --> Different approaches to model training / Evaluation of the different methods
 
 ## Main sources / Reading materials
 
