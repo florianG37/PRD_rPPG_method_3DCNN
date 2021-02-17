@@ -29,7 +29,7 @@ from pyVHR.datasets.dataset import datasetFactory
 
 config = configparser.ConfigParser()
 
-config.read('./testOnRealVideo.cfg')
+config.read('./BPMEstimationOnRealVideo.cfg')
 
 if(int(config['ExeConfig']['useCPU']) == 1):
     #RUN ON CPU
@@ -329,6 +329,15 @@ for lapse in range(0 ,NB_LAPSE):
     Tab_BPM_True.append(BPM_True)
 
 # Display
+print("Video Filename : " + videoFilename)
+print("Estimated values :")
 print(Tab_BPM_estimated)
+print("GT values :")
 print(Tab_BPM_True)
+
+sum_diff_abs = 0
+for i in range(len(Tab_BPM_estimated)):
+    sum_diff_abs += abs(Tab_BPM_estimated[i] - Tab_BPM_True[i])
+mean_diff_abs = sum_diff_abs / len(Tab_BPM_estimated)
+print("Mean error : " + str(mean_diff_abs))
 
