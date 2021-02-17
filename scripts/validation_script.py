@@ -23,7 +23,7 @@ Loading configuration
 """
 config = configparser.ConfigParser()
 
-config.read('./training.cfg')
+config.read('./validation.cfg')
 
 print("Loading configuration.. done")
 
@@ -74,7 +74,7 @@ if (int(config['modelConfig']['mixedData']) == 1):
 
 RESULTS_PATH = str(config['modelConfig']['modelPath'])
 
-REAL_VIDEO_DATASET = str(config['dataConfig']['realVideoDataset'])
+REAL_VIDEO_DATASET = config.get('dataConfig', 'realVideoDataset').split(',')
 
 useCPU  = int(config['modelConfig']['useCPU'])
 if(useCPU == 1):
@@ -215,17 +215,28 @@ model = model_from_json(open(f'{RESULTS_PATH}/model_conv3D.json').read())
 model.load_weights(f'{RESULTS_PATH}/weights_conv3D.h5')
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-if(MIXED_DATA == True):
-    data = np.load('./dataSplited.npz')
-    xvalidation = np.concatenate((xvalidation, data['c']), axis=0)
-    yvalidation =  np.concatenate((yvalidation, data['d']), axis=0)
-
-    indices = np.arange(xvalidation.shape[0])
-    np.random.shuffle(indices)
-    xvalidation = xvalidation[indices]
-    yvalidation = yvalidation[indices]
-
 print("Loading model .. done")  
 
+print("Test Validation : Synthetic dataset")  
+
 model.evaluate(xvalidation, yvalidation, verbose=VERBOSE)
+
+if(MIXED_DATA == True):
+
+    # manage several data files
+    for i in range(len(REAL_VIDEO_DATASET)):  
+
+        del xvalidation
+        del yvalidation
+  
+        data = np.load(str(REAL_VIDEO_DATASET[i]))
+
+        xvalidation = data['c']
+        yvalidation = data['d']
+
+        print("Test Validation : + " str(REAL_VIDEO_DATASET[i]) +" dataset")  
+
+        model.evaluate(xvalidation, yvalidation, verbose=VERBOSE)
+
+
 
