@@ -137,6 +137,7 @@ def interpolation(imgs, video):
     place_interpolation = np.random.randint(1, LENGTH_VIDEO, size=(diff_frames))
     for p in place_interpolation:
         imgs = np.insert(imgs, p, imgs[p], axis=0) 
+    return imgs
 
 ##
 ## Protocol for transforming a video into a machine learning dataset
@@ -191,7 +192,7 @@ def extract_data_from_video(video_filename, gt_filename, dataset):
 
     # frameRate different from the model
     if (RATE > video.frameRate):
-        interpolation(imgs, video)
+        imgs = interpolation(imgs, video)
 
     # Construction of sequences for each time interval
     for lapse in range(0,NB_LAPSE):  

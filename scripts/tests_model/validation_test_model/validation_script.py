@@ -234,7 +234,7 @@ if(MIXED_DATA == True):
         xvalidation = data['c']
         yvalidation = data['d']
 
-        print("Test Validation : + " str(REAL_VIDEO_DATASET[i]) +" dataset")  
+        print("Test Validation : " + str(REAL_VIDEO_DATASET[i]) +" dataset")  
 
         model.evaluate(xvalidation, yvalidation, verbose=VERBOSE)
 

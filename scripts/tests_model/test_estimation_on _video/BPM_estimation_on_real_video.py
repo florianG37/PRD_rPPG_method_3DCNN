@@ -82,6 +82,10 @@ def convert_video_to_table(video,model, start_frame):
             temp = video.faces[j + start_frame] / 255
 
         imgs[j] = np.expand_dims(temp, 2)
+
+    if (frameRate > video.frameRate):
+        imgs = interpolation(imgs, video)
+
     return imgs
 
 ##
@@ -159,7 +163,20 @@ def formating_data_test(video, model, imgs , freq_bpm, step_x, step_y):
         iteration_x = iteration_x + 1
         
     return predictions                
-    
+##
+## Management of frame rate differences by interpolation
+## 
+def interpolation(imgs, video):
+    # find the number of missing images
+    nb_seconds = int(video.numFrames / video.frameRate)
+    diff_frames = nb_seconds * (frameRate - video.frameRate)
+
+    # adding images to a random place
+    place_interpolation = np.random.randint(1, frameRate*winSizeGT, size=(diff_frames))
+    for p in place_interpolation:
+        imgs = np.insert(imgs, p, imgs[p], axis=0) 
+    return imgs
+   
 ##
 ## Finding the label associated with the prediction
 ##
@@ -334,10 +351,15 @@ print("Estimated values :")
 print(Tab_BPM_estimated)
 print("GT values :")
 print(Tab_BPM_True)
-
+Tab_diff_abs = []
 sum_diff_abs = 0
 for i in range(len(Tab_BPM_estimated)):
-    sum_diff_abs += abs(Tab_BPM_estimated[i] - Tab_BPM_True[i])
+    diff_abs = abs(Tab_BPM_estimated[i] - Tab_BPM_True[i])
+    sum_diff_abs += diff_abs
+    Tab_diff_abs.append(diff_abs)
+
+print("Diff abs :")
+print(Tab_diff_abs)
 mean_diff_abs = sum_diff_abs / len(Tab_BPM_estimated)
 print("Mean error : " + str(mean_diff_abs))
 
