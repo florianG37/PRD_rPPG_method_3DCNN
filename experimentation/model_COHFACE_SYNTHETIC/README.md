@@ -11,20 +11,53 @@
 - UBFC2 = not compressed video
 
 #### Validation tests
-
-Dataset | Result (accuracy) 
- - | -:
-SYNTHETIC |  75.55%
-COHFACE | 52,15%
-UBFC2 | 2.65%
+<table>
+    <thead>
+        <th>Dataset</th>
+        <th>Result (accuracy)</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>SYNTHETIC</td>
+            <td>75.55%</td>
+        </tr>
+        <tr>
+            <td>COHFACE</td>
+            <td>52,15%</td>
+        </tr>
+        <tr>
+            <td>UBFC2</td>
+            <td>2.65%</td>
+        </tr>
+    </tbody>
+</table>
 
 #### Real-world tests
-Video | Mean error 
- - | -:
-COHFACE Subject 1 vid 0 |  12.36 bpm
-COHFACE Subject 2 vid 0 | 6.25 bpm
-UBFC2 Suject 1| 27.43 bpm
-UBFC2 Subject 3 | 34.43 bpm
+
+<table>
+    <thead>
+        <th>Video</th>
+        <th>Mean error </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>COHFACE Subject 1 vid 0</td>
+            <td>12.36 bpm</td>
+        </tr>
+        <tr>
+            <td>COHFACE Subject 2 vid 0</td>
+            <td>6.25 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Suject 1</td>
+            <td>27.43 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Subject 3</td>
+            <td>34.43 bpm</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Number of session : 20 (save-2)
 
@@ -33,20 +66,54 @@ UBFC2 Subject 3 | 34.43 bpm
 - UBFC2 = not compressed video
 
 #### Validation tests
+<table>
+    <thead>
+        <th>Dataset</th>
+        <th>Result (accuracy)</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>SYNTHETIC</td>
+            <td>88,08%</td>
+        </tr>
+        <tr>
+            <td>COHFACE</td>
+            <td>48.47%</td>
+        </tr>
+        <tr>
+            <td>UBFC2</td>
+            <td>3.97%</td>
+        </tr>
+    </tbody>
+</table>
 
-Dataset | Result (accuracy)
- - | -:
-SYNTHETIC |  88,08%
-COHFACE | 48.47%
-UBFC2 | 3.97%
 
 #### Real-world tests
-Video | Mean error 
- - | -:
-COHFACE Subject 1 vid 0 |  18.26 bpm
-COHFACE Subject 2 vid 0 | 5.69 bpm
-UBFC2 Suject 1| 42.12 bpm
-UBFC2 Subject 3 | 37.19 bpm
+
+<table>
+    <thead>
+        <th>Video</th>
+        <th>Mean error </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>COHFACE Subject 1 vid 0</td>
+            <td>18.26 bpm</td>
+        </tr>
+        <tr>
+            <td>COHFACE Subject 2 vid 0</td>
+            <td>5.69 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Suject 1</td>
+            <td>42.12 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Subject 3</td>
+            <td>37.19 bpm</td>
+        </tr>
+    </tbody>
+</table>
 
 
 ## Details
