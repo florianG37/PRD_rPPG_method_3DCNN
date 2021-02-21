@@ -1,4 +1,4 @@
-# COHFACE & SYNTHETIC datasets Training
+# COHFACE & UBFC2 & SYNTHETIC datasets Training
 
 <em> Author : Florian GIGOT </em>
 
