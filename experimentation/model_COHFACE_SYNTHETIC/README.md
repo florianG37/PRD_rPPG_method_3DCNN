@@ -116,6 +116,63 @@
 </table>
 
 
+### Number of session : 26 (save-3)
+
+- 1 session  = 10 epochs
+- COHFACE = compressed video
+- UBFC2 = not compressed video
+
+#### Validation tests
+<table>
+    <thead>
+        <th>Dataset</th>
+        <th>Result (accuracy)</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>SYNTHETIC</td>
+            <td>93,05%</td>
+        </tr>
+        <tr>
+            <td>COHFACE</td>
+            <td>51.53%</td>
+        </tr>
+        <tr>
+            <td>UBFC2</td>
+            <td>1.99%</td>
+        </tr>
+    </tbody>
+</table>
+
+
+#### Real-world tests
+
+<table>
+    <thead>
+        <th>Video</th>
+        <th>Mean error </th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>COHFACE Subject 1 vid 0</td>
+            <td>17.36 bpm</td>
+        </tr>
+        <tr>
+            <td>COHFACE Subject 2 vid 0</td>
+            <td>5.97 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Suject 1</td>
+            <td>37.17 bpm</td>
+        </tr>
+        <tr>
+            <td>UBFC2 Subject 3</td>
+            <td>36.34 bpm</td>
+        </tr>
+    </tbody>
+</table>
+
+
 ## Details
 
 ### 14 sessions
@@ -143,3 +200,16 @@
 ![UBFC2 Suject 1](./imgs/UBFC-1-save2.JPG)
 #### UBFC2 Subject 3
 ![UBFC2 Subject 3](./imgs/UBFC-3-save2.JPG)
+
+### 26 sessions
+
+#### Tests validation
+![Tests validation](./imgs/test_Validation-save3.JPG)
+#### COHFACE Subject 1 vid 0
+![COHFACE Subject 1 vid 0](./imgs/COHFACE-1-0-save3.JPG)
+#### COHFACE Subject 2 vid 0
+![COHFACE Subject 2 vid 0](./imgs/COHFACE-2-0-save3.JPG)
+#### UBFC2 Suject 1
+![UBFC2 Suject 1](./imgs/UBFC-1-save3.JPG)
+#### UBFC2 Subject 3
+![UBFC2 Subject 3](./imgs/UBFC-3-save3.JPG)
