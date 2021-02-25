@@ -82,10 +82,6 @@ def convert_video_to_table(video,model, start_frame):
             temp = video.faces[j + start_frame] / 255
 
         imgs[j] = np.expand_dims(temp, 2)
-
-    if (frameRate > video.frameRate):
-        imgs = interpolation(imgs, video)
-
     return imgs
 
 ##
@@ -163,104 +159,22 @@ def formating_data_test(video, model, imgs , freq_bpm, step_x, step_y):
         iteration_x = iteration_x + 1
         
     return predictions                
-##
-## Management of frame rate differences by interpolation
-## 
-def interpolation(imgs, video):
-    # find the number of missing images
-    nb_seconds = int(video.numFrames / video.frameRate)
-    diff_frames = nb_seconds * (frameRate - video.frameRate)
-
-    # adding images to a random place
-    place_interpolation = np.random.randint(1, frameRate*winSizeGT, size=(diff_frames))
-    for p in place_interpolation:
-        imgs = np.insert(imgs, p, imgs[p], axis=0) 
-    return imgs
-   
+    
 ##
 ## Finding the label associated with the prediction
 ##
 
-def get_class(h, freq_bpm, interval): 
-    # index in the list
-    iterator = 0
-    # maximum value of an interval
-    sum_max = -1
-    # index of maximum value of an interval
-    idx_max = 0
-    # security against list out of range problems
-    out_of_range = len(freq_bpm) -1
+def get_class(prediction, freq_bpm): 
+    nb_bins = 0
+    score = 0
+    for i in range(len(prediction)-1):
+        nb_bins += prediction[i]
+        score += freq_bpm[i] * prediction[i]
+        
+    bpm = score / nb_bins
     
-    # Calculating the sum of all intervals
-    while iterator < (len(h)- interval - 1):
-        # value of studied interval
-        sum_interval = 0
-        # representative index of value of studied interval
-        idx_interval = iterator+ int(interval/2)
-        
-        # Calculates variables
-        for j in range(interval):
-            sum_interval = sum_interval + h[iterator + j]
-        
-        # Case where value of the studied interval equal to the value of the maximum interval
-        if sum_interval == sum_max and sum_interval != 0:
-            # Decision based on representative indexes
-            if(h[idx_interval] > h[idx_max]):
-                sum_max = sum_interval
-                idx_max = idx_interval
-            # Decision based on neighbors of representative indexes    
-            elif(h[idx_interval] == h[idx_max]):
-                sum_max, idx_max = study_neighborhoods(h, sum_max,sum_interval, idx_max, idx_interval, out_of_range)
+    return bpm
 
-        # Case where the studied interval is better than the maximum interval                
-        elif (sum_interval > sum_max):
-            sum_max = sum_interval
-            idx_max = idx_interval
-        #increment    
-        iterator = iterator +1
-        
-    # return bpm value   
-    return freq_bpm[idx_max] 
-##
-## Decision based on neighbors of representative indexes  
-##
-def study_neighborhoods(h, sum_max,sum_interval, idx_max, idx_interval, out_of_range):
-    # Decision statue
-    find = False
-    # Neighborhood degree
-    var = 1
-    # intervals according to the degree of neighborhood
-    sum_var_max = h[idx_max]
-    sum_var_interval = h[idx_interval]
-                
-    # Study of neighborhood intervals
-    while find is not True:
-                    
-        if(idx_interval + var < out_of_range):
-            sum_var_interval = sum_var_interval + h[idx_interval + var]
-            
-        if(idx_interval - var >= 0):
-            sum_var_interval = sum_var_interval + h[idx_interval - var]
-            
-        if(idx_max + var < out_of_range):
-            sum_var_max = sum_var_max + h[idx_max + var]
-            
-        if(idx_max - var >= 0):
-            sum_var_max = sum_var_max + h[idx_max - var]
-                       
-        if(sum_var_max < sum_var_interval):
-            sum_max = sum_interval
-            idx_max = idx_interval
-            find =True
-        elif(sum_var_max > sum_var_interval):
-            find =True
-  
-        if(var > 10):
-            find = True  
-        else :
-            var = var + 1
-        
-    return sum_max, idx_max
 
 ##
 ## Get the index of the maximum value of a prediction
@@ -279,19 +193,15 @@ def get_idx(h):
 ## Make a prediction
 ##
 
-def make_prediction(video, model, freq_bpm, start_frame):
+def make_prediction(video, model, freq_bpm, start_frame, x_step, y_step):
     
     #extract Green channel or Black & whrite channel
     frames_one_channel = convert_video_to_table(video,model, start_frame)
     
-    #Data preparation 
-    x_step = int(config['DataConfig']['Xstep'])
-    y_step = int(config['DataConfig']['Ystep'])
     prediction = formating_data_test(video, model, frames_one_channel, freq_bpm, x_step, y_step)
     
     # get bpm
-    interval_for_estimation =  int(config['DataConfig']['intervalForEstimation'])
-    bpm = get_class(prediction, freq_bpm, interval_for_estimation)
+    bpm = get_class(prediction, freq_bpm)
     return bpm
 
 
@@ -321,6 +231,10 @@ nameDataset = str(config['ExeConfig']['nameDataset'])
 videoGTFilename = str(config['ExeConfig']['videoGTFilename'])
 winSizeGT = int(config['DataConfig']['winSizeGT'])
 
+#Data preparation 
+x_step = int(config['DataConfig']['Xstep'])
+y_step = int(config['DataConfig']['Ystep'])
+
 NB_LAPSE = int(video.numFrames / frameRate)
 if(int(config['ExeConfig']['useNbLapse']) == 1):
     NB_LAPSE = int(config['DataConfig']['NbLapse'])
@@ -340,7 +254,7 @@ for lapse in range(0 ,NB_LAPSE):
     if(end > video.numFrames):
         break
 
-    BPM_estimated = make_prediction(video, model, freq_bpm, startFrame)
+    BPM_estimated = make_prediction(video, model, freq_bpm, startFrame, x_step, y_step)
     Tab_BPM_estimated.append(BPM_estimated)
     BPM_True = GT_BPM[lapse+int(winSizeGT/2)]
     Tab_BPM_True.append(BPM_True)
@@ -351,15 +265,10 @@ print("Estimated values :")
 print(Tab_BPM_estimated)
 print("GT values :")
 print(Tab_BPM_True)
-Tab_diff_abs = []
+
 sum_diff_abs = 0
 for i in range(len(Tab_BPM_estimated)):
-    diff_abs = abs(Tab_BPM_estimated[i] - Tab_BPM_True[i])
-    sum_diff_abs += diff_abs
-    Tab_diff_abs.append(diff_abs)
-
-print("Diff abs :")
-print(Tab_diff_abs)
+    sum_diff_abs += abs(Tab_BPM_estimated[i] - Tab_BPM_True[i])
 mean_diff_abs = sum_diff_abs / len(Tab_BPM_estimated)
 print("Mean error : " + str(mean_diff_abs))
 
