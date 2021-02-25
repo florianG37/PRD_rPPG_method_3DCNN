@@ -42,7 +42,7 @@
     <tbody>
         <tr>
             <td>COHFACE Subject 1 vid 0</td>
-            <td>12.36 bpm</td>
+            <td>10.12 bpm</td>
         </tr>
         <tr>
             <td>COHFACE Subject 2 vid 0</td>
@@ -50,11 +50,11 @@
         </tr>
         <tr>
             <td>UBFC2 Suject 1</td>
-            <td>27.43 bpm</td>
+            <td>29.43 bpm</td>
         </tr>
         <tr>
             <td>UBFC2 Subject 3</td>
-            <td>34.43 bpm</td>
+            <td>28.04 bpm</td>
         </tr>
     </tbody>
 </table>
@@ -98,19 +98,19 @@
     <tbody>
         <tr>
             <td>COHFACE Subject 1 vid 0</td>
-            <td>18.26 bpm</td>
+            <td>12.07 bpm</td>
         </tr>
         <tr>
             <td>COHFACE Subject 2 vid 0</td>
-            <td>5.69 bpm</td>
+            <td>3.72 bpm</td>
         </tr>
         <tr>
             <td>UBFC2 Suject 1</td>
-            <td>42.12 bpm</td>
+            <td>35.69 bpm</td>
         </tr>
         <tr>
             <td>UBFC2 Subject 3</td>
-            <td>37.19 bpm</td>
+            <td>31.52 bpm</td>
         </tr>
     </tbody>
 </table>
@@ -155,19 +155,19 @@
     <tbody>
         <tr>
             <td>COHFACE Subject 1 vid 0</td>
-            <td>17.36 bpm</td>
+            <td>8.98 bpm</td>
         </tr>
         <tr>
             <td>COHFACE Subject 2 vid 0</td>
-            <td>5.97 bpm</td>
+            <td>6.63 bpm</td>
         </tr>
         <tr>
             <td>UBFC2 Suject 1</td>
-            <td>37.17 bpm</td>
+            <td>31.36 bpm</td>
         </tr>
         <tr>
             <td>UBFC2 Subject 3</td>
-            <td>36.34 bpm</td>
+            <td>24.98 bpm</td>
         </tr>
     </tbody>
 </table>
