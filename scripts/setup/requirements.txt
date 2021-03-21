@@ -1,3 +1,5 @@
+numpy==1.18.5
+pyVHR==0.0.3
 tensorflow-gpu==2.3.1
 h5py==2.10.0
 opencv-python==4.4.0.46

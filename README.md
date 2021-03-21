@@ -2,15 +2,31 @@
 
 <em> Author : Florian GIGOT </em>
 
+## Objective
+
+In this repository, we want to develop and test a new rPPG method in order to integrate it into pyVHR to compare our results with other rPPG methods.
+
+## Installation of dependencies
+
+    > cd scripts/setup
+    > pip install -r requirements.txt
+
+Note that a python version higher than 3.6 is required
+
 ## Repository architecture :
+
+### Jupyter Notebooks - Documentation
 
 * notebooks --> Research, explanations, tests
 
     
-    * Train_3DCNN_model_BPM --> Jupyter notebook of the new method (3DCNN) implementation (with explanations)
-    * Predict_3DCNN_model_BPM --> Jupyter notebook to make predictions with the model with [pyVHR framework](https://github.com/phuselab/pyVHR) constraints (with explanations).
+    * Train_3DCNN_model_BPM --> Jupyter notebook to train the model used by the new method (MAP_3DCNN) (with explanations)
+    * Predict_3DCNN_model_BPM --> Jupyter notebook to make predictions with the method on a specific sequence of a real video (with explanations). 
+    * BPM_estimation_on_real_video --> Jupyter notebook to make predictions with the method with [pyVHR framework](https://github.com/phuselab/pyVHR) constraints.
     * Generating_training_data_with_GT --> Jupyter Notebook to create a training dataset from traditional rPPG datasets (Pre-Processing = reshape). Judge its relevance to improve the training of our model
     * Generating_training_data_with_GT_2 --> Jupyter Notebook to create a training dataset from traditional rPPG datasets (here UBFC2 case but generalizable to others) with Pre-processing designed according to our prediction strategy detailed in Predict_3DCNN_model_BPM. 
+
+### Final implementation - Code 
 
 * scripts --> final code
 
@@ -31,6 +47,8 @@
         * training_script --> Script to launch a training session
         * generating_training_data_with_GT_script --> Script to create a training dataset from traditional rPPG datasets (with preprocessing).
         * generatingTrainingDatasetWithGT --> Script configuration file - generating_training_data_with_GT_script
+
+### Example of use - experiments
 
 * experimentation --> Different approaches to model training / Evaluation of the different methods
 
