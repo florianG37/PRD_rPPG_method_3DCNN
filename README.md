@@ -30,8 +30,6 @@ Note that a python version higher than 3.6 is required
 
 * scripts --> final code
 
-    * "model" Folder --> Trained model files (final version)
-
     * "setup" Folder --> Installation tools
         * Installing_dependencies --> Install libraries for scripts (Windows File)
         * requirements --> List of used libraries + versions
@@ -51,6 +49,11 @@ Note that a python version higher than 3.6 is required
 ### Example of use - experiments
 
 * experimentation --> Different approaches to model training / Evaluation of the different methods
+
+
+## Associated repository
+
+* Task 2 : Integration of the new method (MAP_3DCNN) into the pyVHR framework Repository ([GitHub](https://github.com/florianG37/pyVHR))
 
 ## Main sources / Reading materials
 
